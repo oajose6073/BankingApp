@@ -1,7 +1,9 @@
-FROM node:18
+FROM node:20-slim
 WORKDIR /usr/src/app
 COPY package*.json ./
-RUN npm install
+RUN npm install --production
 COPY . .
 EXPOSE 5090
+RUN useradd -m appuser
+USER appuser
 CMD [ "node", "server.js" ]
